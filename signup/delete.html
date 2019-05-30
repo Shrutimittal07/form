@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>update the data</title>
+<link href="css/bootstrap.css" rel="stylesheet"/>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<style type="text/css">
+	body{
+		background-color: lightgrey; 
+	}
+</style>
+
+
+</head>
+<body>
+	<center><h2>DATA</h2></center>
+    <center>
+	<table id="table">
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Password</th>
+			<th>Username</th>
+			<th>Age</th>
+			<th>Color</th>
+			<th>Gender</th>
+
+		</tr>
+    </table>
+    </center>
+	<center><h3>Re-enter the data to delete your details</h3></center>
+	<div class="container">
+		<div class="row">
+		 <div class="col-md-6 col-md-offset-3" id="form"><br>
+  
+
+			<div class="form-group">
+				<label>Email:</label>
+				<input type="text" name="Email" class="form-control text" placeholder="Enter Email" id="email">
+				<span id="mail" class="text-danger"> </span>
+
+				
+			</div>
+			<div class="form-group">
+				<label>Password:</label>
+				<input type="password" name="Password" class="form-control text" placeholder="Enter Password" id="pass">
+				<span id="password" class="text-danger"> </span>
+			</div>
+
+            <br>
+            <div class="form-group">
+            	<input type="submit" id="btn" class="btn btn-primary" value="submit">
+            </div>
+
+            <div><h5 id="message1"></h5></div>
+      
+	</div>
+</div>
+</div>
+
+
+<scrip src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></scrip>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+        $(document).ready(function(){
+            $.getJSON("https://technocracy-task-2.herokuapp.com/people",function(data){
+                var data1 ='';
+                $.each(data,function(key,value){
+                    data1 += '<tr>';
+                    data1 += '<td>'+value.name+'</td>';
+                    data1 += '<td>'+value.email+'</td>';
+                    data1 += '<td>'+value.password+'</td>';
+                    data1 += '<td>'+value.age+'</td>';
+                    data1 += '<td>'+value.color+'</td>';
+                    data1 += '<td>'+value.username+'</td>';
+                    data1 += '<td>'+value.gender+'</td>';
+                    data1 += '<td>'+value.id+'</td>';
+                    data1 += '</tr>';
+                });
+                $('#table21').append(data21);
+            });
+        });
+    </script>
+<script type="text/javascript">
+
+	$("#btn").click(function(e){
+		var email1=document.getElementById(email).value;
+		console.log(email1);
+		var pass1=document.getElementById(pass).value;
+		console.log(pass1);
+		$.getJSON("https://technocracy-task-2.herokuapp.com/people", function(data){
+			var data1 ='';
+			var b =0;
+			var a =0;
+			$.each(data.function(key,value){
+				console.log(value.email);
+				console.log(value.password);
+
+				if (email1==value.email && pass1==value.password){
+					console.log(a);
+					$.ajax({
+                                    type: "DELETE",
+                                    url: "https://technocracy-task-2.herokuapp.com/people/"+value.id,
+                                    // data: data1,
+                                    contentType: 'application/json; charset=utf-8',
+                                    dataType: 'json',
+                                    async: true,
+                                    success: function (msg) {
+                                        alert("DATA is sucessfully deleted")
+                                        location.reload();
+                                                               
+                                            }
+                                });
+
+				         }
+				         else{
+                            a=a+1;
+                            console.log(a);
+                        }   
+
+			});
+		});
+	});
+
+
+
+</script>
+
+</body>
+</html>
